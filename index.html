@@ -438,18 +438,20 @@
 
         <div class="section">
             <div class="section-label">Email Message</div>
-            <div class="message-box" id="messageText">Hi,
+            <div class="message-box" id="messageText">Dear Hiring Manager,
 
-I saw the Java Developer opening at your company and wanted to apply.
+I hope this message finds you well. I came across the Java Developer position at your organization and I am excited to express my interest.
 
-I have 3+ years of experience working with Java, Spring Boot, Microservices, REST APIs, SQL, AWS, and Docker, RabbitMq. I also work with HTML, CSS, Vaadin on the frontend side. I can join immediately.
+With over 3 years of hands-on experience in Java, Spring Boot, Microservices, REST APIs, SQL, AWS, Docker, and RabbitMQ, I bring a strong backend development skill set. Additionally, I have frontend experience with HTML, CSS, and Vaadin, enabling me to contribute across the full stack.
 
-Here's my resume:
+I am available to join immediately and would welcome the opportunity to discuss how my skills align with your team's needs.
+
+Please find my resume here:
 https://drive.google.com/file/d/1VzWALy8vSMzSvGt4FxG8vTqgjVCdg2U4/view?usp=drive_link
 
-Would be great to connect and talk more about this.
+Looking forward to hearing from you.
 
-Thanks,
+Best regards,
 Pranav Singh
 +91-8269338614
 pranavsinghruhela@gmail.com</div>
@@ -471,7 +473,7 @@ pranavsinghruhela@gmail.com</div>
             <div class="notification" id="emailNotification"></div>
 
             <div class="info-box">
-                <strong>ℹ️ Note:</strong> Clicking "Send Email" will open your default email client (Gmail, Outlook, etc.) with the message pre-filled. You'll still need to review and click send.
+                <strong>ℹ️ Note:</strong> Clicking "Send Email" will open Gmail compose in a new tab with everything pre-filled (recipient, subject, message). Just review and hit send — no need to enter your email again!
             </div>
         </div>
         </div>
@@ -688,7 +690,7 @@ Pranav</div>
 
         function sendEmail() {
             const email = document.getElementById('hrEmail').value.trim();
-            
+
             if (!email) {
                 showNotification('emailNotification', 'Please enter an email address', 'error');
                 return;
@@ -701,9 +703,10 @@ Pranav</div>
 
             const subject = encodeURIComponent(document.getElementById('subjectText').textContent);
             const message = encodeURIComponent(document.getElementById('messageText').textContent);
-            
-            window.location.href = `mailto:${email}?subject=${subject}&body=${message}`;
-            showNotification('emailNotification', 'Email client is opening...', 'success');
+
+            const gmailUrl = `https://mail.google.com/mail/?view=cm&to=${email}&su=${subject}&body=${message}`;
+            window.open(gmailUrl, '_blank');
+            showNotification('emailNotification', 'Gmail is opening with your email ready to send!', 'success');
         }
 
         function isValidEmail(email) {
