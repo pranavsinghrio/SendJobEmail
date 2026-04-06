@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Job Application Helper - Quick Templates</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 15px;
+            overflow-x: hidden;
+        }
+
+        .container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 900px;
+            width: 100%;
+            padding: 30px;
+            margin: 20px auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .header h1 {
+            color: #333;
+            font-size: 26px;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #e0e7ff;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .tab {
+            padding: 12px 20px;
+            background: transparent;
+            border: none;
+            border-bottom: 3px solid transparent;
+            color: #666;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            min-width: auto;
+        }
+
+        .tab.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+        }
+
+        .tab:hover {
+            color: #667eea;
+            background: #f5f7fa;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .section {
+            margin-bottom: 25px;
+        }
+
+        .section-label {
+            font-weight: 600;
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .subject-box {
+            background: #f5f7fa;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            border-radius: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .subject-text {
+            flex: 1;
+            color: #333;
+            font-size: 15px;
+            line-height: 1.4;
+        }
+
+        .message-box {
+            background: #f5f7fa;
+            border: 2px solid #e0e7ff;
+            border-radius: 8px;
+            padding: 20px;
+            color: #333;
+            font-size: 14px;
+            line-height: 1.8;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            margin-bottom: 15px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            flex: 1;
+            min-width: 120px;
+            padding: 14px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-secondary {
+            background: #e0e7ff;
+            color: #667eea;
+        }
+
+        .btn-secondary:hover {
+            background: #c7d2f0;
+            transform: translateY(-2px);
+        }
+
+        .email-section {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #e0e7ff;
+        }
+
+        .email-input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .email-input-group input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 2px solid #e0e7ff;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        .email-input-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .notification {
+            padding: 12px 15px;
+            border-radius: 6px;
+            margin-top: 15px;
+            text-align: center;
+            font-size: 14px;
+            display: none;
+        }
+
+        .notification.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            display: block;
+        }
+
+        .notification.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            display: block;
+        }
+
+        .divider {
+            text-align: center;
+            margin: 20px 0;
+            color: #999;
+        }
+
+        .info-box {
+            background: #e7f3ff;
+            border-left: 4px solid #667eea;
+            padding: 12px 15px;
+            border-radius: 6px;
+            font-size: 13px;
+            color: #333;
+            margin-top: 15px;
+            line-height: 1.6;
+        }
+
+        .whatsapp-btn {
+            background: #25D366;
+            color: white;
+        }
+
+        .whatsapp-btn:hover {
+            background: #22c35e;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3);
+        }
+
+        .linkedin-btn {
+            background: #0077B5;
+            color: white;
+        }
+
+        .linkedin-btn:hover {
+            background: #006399;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 119, 181, 0.3);
+        }
+
+        .quick-reply-card {
+            background: #f5f7fa;
+            border: 2px solid #e0e7ff;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .quick-reply-card h4 {
+            color: #667eea;
+            font-size: 13px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .quick-reply-text {
+            background: white;
+            padding: 12px;
+            border-radius: 6px;
+            color: #333;
+            font-size: 13px;
+            line-height: 1.6;
+            margin-bottom: 10px;
+            word-wrap: break-word;
+        }
+
+        .input-with-button {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .input-with-button input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 2px solid #e0e7ff;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .input-with-button input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+                align-items: flex-start;
+            }
+
+            .container {
+                padding: 20px;
+                margin: 10px auto;
+                border-radius: 8px;
+            }
+
+            .header h1 {
+                font-size: 22px;
+            }
+
+            .header p {
+                font-size: 13px;
+            }
+
+            .tabs {
+                gap: 5px;
+                margin-bottom: 20px;
+            }
+
+            .tab {
+                padding: 10px 15px;
+                font-size: 13px;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            button {
+                min-width: auto;
+                width: 100%;
+                padding: 16px 24px;
+                font-size: 15px;
+            }
+
+            .subject-box {
+                flex-direction: column;
+                gap: 10px;
+                align-items: stretch;
+            }
+
+            .subject-box button {
+                min-width: auto !important;
+                flex: 1 !important;
+            }
+
+            .email-input-group {
+                flex-direction: column;
+            }
+
+            .input-with-button {
+                flex-direction: column;
+            }
+
+            .input-with-button button {
+                width: 100%;
+            }
+
+            .message-box {
+                font-size: 13px;
+                padding: 15px;
+                max-height: 300px;
+            }
+
+            .section-label {
+                font-size: 12px;
+            }
+
+            .quick-reply-text {
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 15px;
+            }
+
+            .header h1 {
+                font-size: 20px;
+            }
+
+            button {
+                padding: 16px 20px;
+                font-size: 14px;
+            }
+
+            .tab {
+                padding: 8px 12px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 Job Application Helper</h1>
+            <p>Email, WhatsApp & LinkedIn Templates</p>
+        </div>
+
+        <!-- Tabs Navigation -->
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('email')">📧 Email Template</button>
+            <button class="tab" onclick="switchTab('whatsapp')">💬 WhatsApp</button>
+            <button class="tab" onclick="switchTab('linkedin')">🔗 LinkedIn</button>
+        </div>
+
+        <!-- Email Template Tab -->
+        <div class="tab-content active" id="email-tab">
+        <div class="section">
+            <div class="section-label">Email Subject</div>
+            <div class="subject-box">
+                <div class="subject-text" id="subjectText">Java Developer Application – Pranav Singh</div>
+                <button class="btn-secondary" onclick="copyToClipboard('subjectText', 'subjectNotification')" style="min-width: 80px; flex: 0;">Copy</button>
+            </div>
+            <div class="notification" id="subjectNotification"></div>
+        </div>
+
+        <div class="section">
+            <div class="section-label">Email Message</div>
+            <div class="message-box" id="messageText">Hi,
+
+I saw the Java Developer opening at your company and wanted to apply.
+
+I have 3+ years of experience working with Java, Spring Boot, Microservices, REST APIs, SQL, AWS, and Docker, RabbitMq. I also work with HTML, CSS, Vaadin on the frontend side. I can join immediately.
+
+Here's my resume:
+https://drive.google.com/file/d/1VzWALy8vSMzSvGt4FxG8vTqgjVCdg2U4/view?usp=drive_link
+
+Would be great to connect and talk more about this.
+
+Thanks,
+Pranav Singh
++91-8269338614
+pranavsinghruhela@gmail.com</div>
+
+            <div class="button-group">
+                <button class="btn-primary" onclick="copyToClipboard('messageText', 'messageNotification')">Copy Message</button>
+            </div>
+            <div class="notification" id="messageNotification"></div>
+        </div>
+
+        <div class="divider">✉️</div>
+
+        <div class="email-section">
+            <div class="section-label">Send Email Automatically</div>
+            <div class="email-input-group">
+                <input type="email" id="hrEmail" placeholder="Enter HR email address..." required>
+                <button class="btn-primary" onclick="sendEmail()" style="flex: 0; min-width: 100px;">Send Email</button>
+            </div>
+            <div class="notification" id="emailNotification"></div>
+
+            <div class="info-box">
+                <strong>ℹ️ Note:</strong> Clicking "Send Email" will open your default email client (Gmail, Outlook, etc.) with the message pre-filled. You'll still need to review and click send.
+            </div>
+        </div>
+        </div>
+
+        <!-- WhatsApp Tab -->
+        <div class="tab-content" id="whatsapp-tab">
+            <div class="section">
+                <div class="section-label">Send Resume via WhatsApp</div>
+                <div class="input-with-button">
+                    <input type="tel" id="hrWhatsApp" placeholder="Enter HR WhatsApp number (with country code, e.g., 919876543210)" maxlength="15">
+                </div>
+                <div class="button-group">
+                    <button class="btn-primary whatsapp-btn" onclick="sendWhatsApp()">Send on WhatsApp</button>
+                </div>
+                <div class="notification" id="whatsappNotification"></div>
+
+                <div class="info-box">
+                    <strong>ℹ️ Format:</strong> Enter number with country code without '+' (e.g., 919876543210 for India).
+                </div>
+            </div>
+
+            <div class="divider">💬</div>
+
+            <div class="section">
+                <div class="section-label">Quick WhatsApp Replies</div>
+
+                <div class="quick-reply-card">
+                    <h4>Reply 1: Expressing Interest</h4>
+                    <div class="quick-reply-text" id="wa-reply1">Hi, thanks for reaching out!
+
+I'm interested. I have 3+ years in Java, Spring Boot, Microservices, AWS and also work with React and JavaScript. Can join immediately.
+
+Resume: https://drive.google.com/file/d/1VzWALy8vSMzSvGt4FxG8vTqgjVCdg2U4/view?usp=drive_link
+
+Let me know what's next.
+
+Thanks,
+Pranav</div>
+                    <button class="btn-secondary" onclick="copyToClipboard('wa-reply1', 'wa-notif1')">Copy Reply</button>
+                    <div class="notification" id="wa-notif1"></div>
+                </div>
+
+                <div class="quick-reply-card">
+                    <h4>Reply 2: Availability Confirmation</h4>
+                    <div class="quick-reply-text" id="wa-reply2">Hi, yes I'm available to talk.
+
+Today or tomorrow works for me. Just let me know the time.
+
+Thanks,
+Pranav</div>
+                    <button class="btn-secondary" onclick="copyToClipboard('wa-reply2', 'wa-notif2')">Copy Reply</button>
+                    <div class="notification" id="wa-notif2"></div>
+                </div>
+
+                <div class="quick-reply-card">
+                    <h4>Reply 3: Follow-up</h4>
+                    <div class="quick-reply-text" id="wa-reply3">Hi, just checking in on the role we talked about.
+
+Still interested and available. Let me know if you need anything from my side.
+
+Thanks,
+Pranav</div>
+                    <button class="btn-secondary" onclick="copyToClipboard('wa-reply3', 'wa-notif3')">Copy Reply</button>
+                    <div class="notification" id="wa-notif3"></div>
+                </div>
+
+                <div class="quick-reply-card">
+                    <h4>Reply 4: Sharing Details</h4>
+                    <div class="quick-reply-text" id="wa-reply4">Hi, sharing my details:
+
+Name: Pranav Singh
+Experience: 3+ years in Java Development
+Skills: Java, Spring Boot, Microservices, REST APIs, SQL, AWS, Docker, HTML, CSS, Vaadin
+Notice Period: Immediate
+Contact: +91-8269338614 | pranavsinghruhela@gmail.com
+
+Resume: https://drive.google.com/file/d/1VzWALy8vSMzSvGt4FxG8vTqgjVCdg2U4/view?usp=drive_link
+
+Let me know if you need anything else.
+
+Thanks,
+Pranav</div>
+                    <button class="btn-secondary" onclick="copyToClipboard('wa-reply4', 'wa-notif4')">Copy Reply</button>
+                    <div class="notification" id="wa-notif4"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- LinkedIn Tab -->
+        <div class="tab-content" id="linkedin-tab">
+            <div class="section">
+                <div class="section-label">Quick LinkedIn Replies</div>
+
+                <div class="quick-reply-card">
+                    <h4>Reply 1: Initial Response</h4>
+                    <div class="quick-reply-text" id="ln-reply1">Hi [Name],
+
+Thanks for connecting! I'm interested in the Java Developer role.
+
+I've been working with Java, Spring Boot, Microservices, and AWS for 3+ years. Also comfortable with frontend stuff like React and JavaScript. Can join right away.
+
+Happy to chat more about this.
+
+Thanks,
+Pranav</div>
+                    <button class="btn-secondary linkedin-btn" onclick="copyToClipboard('ln-reply1', 'ln-notif1')">Copy Reply</button>
+                    <div class="notification" id="ln-notif1"></div>
+                </div>
+
+                <div class="quick-reply-card">
+                    <h4>Reply 2: Sharing Resume</h4>
+                    <div class="quick-reply-text" id="ln-reply2">Hi [Name],
+
+Thanks for your message. Here's my resume:
+https://drive.google.com/file/d/1VzWALy8vSMzSvGt4FxG8vTqgjVCdg2U4/view?usp=drive_link
+
+3+ years in Java, Spring Boot, Microservices, REST APIs, AWS. Also do React and JS. Immediate joiner.
+
+Let me know if you'd like to talk.
+
+Thanks,
+Pranav</div>
+                    <button class="btn-secondary linkedin-btn" onclick="copyToClipboard('ln-reply2', 'ln-notif2')">Copy Reply</button>
+                    <div class="notification" id="ln-notif2"></div>
+                </div>
+
+                <div class="quick-reply-card">
+                    <h4>Reply 3: Interview Confirmation</h4>
+                    <div class="quick-reply-text" id="ln-reply3">Hi [Name],
+
+Thanks for the interview opportunity! I'm available and looking forward to it.
+
+Just need the date, time, and platform (Zoom/Teams/Meet). I'll be ready.
+
+Thanks,
+Pranav</div>
+                    <button class="btn-secondary linkedin-btn" onclick="copyToClipboard('ln-reply3', 'ln-notif3')">Copy Reply</button>
+                    <div class="notification" id="ln-notif3"></div>
+                </div>
+
+                <div class="quick-reply-card">
+                    <h4>Reply 4: Polite Follow-up</h4>
+                    <div class="quick-reply-text" id="ln-reply4">Hi [Name],
+
+Just following up on the Java Developer role. Still very interested!
+
+Any updates? Let me know if you need anything else from me.
+
+Thanks,
+Pranav</div>
+                    <button class="btn-secondary linkedin-btn" onclick="copyToClipboard('ln-reply4', 'ln-notif4')">Copy Reply</button>
+                    <div class="notification" id="ln-notif4"></div>
+                </div>
+
+                <div class="quick-reply-card">
+                    <h4>Reply 5: Thank You Note</h4>
+                    <div class="quick-reply-text" id="ln-reply5">Hi [Name],
+
+Thanks for taking the time to talk. It was really helpful to learn about the role and the team.
+
+I'm excited about this and think it could be a great fit. Looking forward to hearing back!
+
+Thanks,
+Pranav</div>
+                    <button class="btn-secondary linkedin-btn" onclick="copyToClipboard('ln-reply5', 'ln-notif5')">Copy Reply</button>
+                    <div class="notification" id="ln-notif5"></div>
+                </div>
+
+                <div class="quick-reply-card">
+                    <h4>Reply 6: Requesting More Details</h4>
+                    <div class="quick-reply-text" id="ln-reply6">Hi [Name],
+
+Thanks for reaching out! I'm interested. Could you share a bit more — like what the day-to-day looks like, the tech stack, team size, remote or onsite, and the salary range?
+
+That'll help me understand if it's a good fit from both sides.
+
+Thanks,
+Pranav</div>
+                    <button class="btn-secondary linkedin-btn" onclick="copyToClipboard('ln-reply6', 'ln-notif6')">Copy Reply</button>
+                    <div class="notification" id="ln-notif6"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(tabName) {
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => content.classList.remove('active'));
+
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+
+            document.getElementById(tabName + '-tab').classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function copyToClipboard(elementId, notificationId) {
+            const element = document.getElementById(elementId);
+            const text = element.textContent;
+
+            navigator.clipboard.writeText(text).then(() => {
+                showNotification(notificationId, 'Copied to clipboard! ✓', 'success');
+            }).catch(() => {
+                const textarea = document.createElement('textarea');
+                textarea.value = text;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                showNotification(notificationId, 'Copied to clipboard! ✓', 'success');
+            });
+        }
+
+        function sendEmail() {
+            const email = document.getElementById('hrEmail').value.trim();
+            
+            if (!email) {
+                showNotification('emailNotification', 'Please enter an email address', 'error');
+                return;
+            }
+
+            if (!isValidEmail(email)) {
+                showNotification('emailNotification', 'Please enter a valid email address', 'error');
+                return;
+            }
+
+            const subject = encodeURIComponent(document.getElementById('subjectText').textContent);
+            const message = encodeURIComponent(document.getElementById('messageText').textContent);
+            
+            window.location.href = `mailto:${email}?subject=${subject}&body=${message}`;
+            showNotification('emailNotification', 'Email client is opening...', 'success');
+        }
+
+        function isValidEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+
+        function showNotification(elementId, message, type) {
+            const notification = document.getElementById(elementId);
+            notification.textContent = message;
+            notification.className = `notification ${type}`;
+            
+            setTimeout(() => {
+                notification.className = 'notification';
+            }, 3000);
+        }
+
+        function sendWhatsApp() {
+            const phoneNumber = document.getElementById('hrWhatsApp').value.trim();
+
+            if (!phoneNumber) {
+                showNotification('whatsappNotification', 'Please enter a WhatsApp number', 'error');
+                return;
+            }
+
+            if (!/^\d{10,15}$/.test(phoneNumber)) {
+                showNotification('whatsappNotification', 'Please enter a valid number with country code (e.g., 919876543210)', 'error');
+                return;
+            }
+
+            const messageText = `Hi,
+
+I saw the Java Developer opening at your company and wanted to reach out.
+
+I have 3+ years of experience in Java, Spring Boot, Microservices, REST APIs, SQL, AWS, Docker, HTML, CSS, and Vaadin. I can join immediately.
+
+Resume: https://drive.google.com/file/d/1VzWALy8vSMzSvGt4FxG8vTqgjVCdg2U4/view?usp=drive_link
+
+Let me know if you'd like to discuss.
+
+Thanks,
+Pranav Singh
++91-8269338614
+pranavsinghruhela@gmail.com`;
+
+            const message = encodeURIComponent(messageText);
+            const isAndroid = /Android/i.test(navigator.userAgent);
+
+            let whatsappURL;
+            if (isAndroid) {
+                whatsappURL = `intent://send?phone=${phoneNumber}&text=${message}#Intent;scheme=whatsapp;package=com.whatsapp;end`;
+            } else {
+                whatsappURL = `https://wa.me/${phoneNumber}?text=${message}`;
+            }
+
+            window.location.href = whatsappURL;
+            showNotification('whatsappNotification', `Opening WhatsApp... ✓`, 'success');
+        }
+
+        document.getElementById('hrEmail').addEventListener('focus', function() {
+            document.getElementById('emailNotification').className = 'notification';
+        });
+
+        document.getElementById('hrWhatsApp').addEventListener('focus', function() {
+            document.getElementById('whatsappNotification').className = 'notification';
+        });
+    </script>
+</body>
+</html>
