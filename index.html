@@ -704,12 +704,23 @@ Pranav</div>
             const subject = encodeURIComponent(document.getElementById('subjectText').textContent);
             const message = encodeURIComponent(document.getElementById('messageText').textContent);
 
-            const mailtoUrl = `mailto:${email}?subject=${subject}&body=${message}`;
-            const link = document.createElement('a');
-            link.href = mailtoUrl;
-            link.target = '_blank';
-            link.click();
-            showNotification('emailNotification', 'Opening Gmail app — just hit send!', 'success');
+            const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+            if (isMobile) {
+                // On mobile: use mailto via hidden iframe so Gmail APP opens (already signed in) and page doesn't redirect
+                const mailtoUrl = `mailto:${email}?subject=${subject}&body=${message}`;
+                const iframe = document.createElement('iframe');
+                iframe.style.display = 'none';
+                iframe.src = mailtoUrl;
+                document.body.appendChild(iframe);
+                setTimeout(() => document.body.removeChild(iframe), 2000);
+                showNotification('emailNotification', 'Opening Gmail app — just hit send!', 'success');
+            } else {
+                // On desktop: open Gmail web compose in new tab (already signed in via browser)
+                const gmailUrl = `https://mail.google.com/mail/?view=cm&to=${email}&su=${subject}&body=${message}`;
+                window.open(gmailUrl, '_blank');
+                showNotification('emailNotification', 'Gmail is opening — just hit send!', 'success');
+            }
         }
 
         function isValidEmail(email) {
