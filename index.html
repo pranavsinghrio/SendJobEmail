@@ -473,7 +473,7 @@ pranavsinghruhela@gmail.com</div>
             <div class="notification" id="emailNotification"></div>
 
             <div class="info-box">
-                <strong>ℹ️ Note:</strong> Clicking "Send Email" will open Gmail compose in a new tab with everything pre-filled (recipient, subject, message). Just review and hit send — no need to enter your email again!
+                <strong>ℹ️ Note:</strong> Clicking "Send Email" will open your Gmail app with everything pre-filled (recipient, subject, message). Just review and hit send!
             </div>
         </div>
         </div>
@@ -704,9 +704,12 @@ Pranav</div>
             const subject = encodeURIComponent(document.getElementById('subjectText').textContent);
             const message = encodeURIComponent(document.getElementById('messageText').textContent);
 
-            const gmailUrl = `https://mail.google.com/mail/?view=cm&to=${email}&su=${subject}&body=${message}`;
-            window.open(gmailUrl, '_blank');
-            showNotification('emailNotification', 'Gmail is opening with your email ready to send!', 'success');
+            const mailtoUrl = `mailto:${email}?subject=${subject}&body=${message}`;
+            const link = document.createElement('a');
+            link.href = mailtoUrl;
+            link.target = '_blank';
+            link.click();
+            showNotification('emailNotification', 'Opening Gmail app — just hit send!', 'success');
         }
 
         function isValidEmail(email) {
